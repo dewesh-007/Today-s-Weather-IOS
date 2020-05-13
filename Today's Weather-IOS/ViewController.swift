@@ -17,6 +17,7 @@ class ViewController: UIViewController, WeatherManagerDelegate {
     @IBOutlet weak var textLabel: UITextField!
     @IBOutlet weak var weatherDisplayLabel: UIImageView!
     @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,8 @@ class ViewController: UIViewController, WeatherManagerDelegate {
     func didUpdateWeather(weather: WeatherModel) {
         DispatchQueue.main.async {
             self.cityNameLabel.text = weather.city
+            self.tempLabel.text = weather.tempString
+            self.weatherDisplayLabel.image = UIImage(systemName: weather.wCondition)
         }
     }
     
