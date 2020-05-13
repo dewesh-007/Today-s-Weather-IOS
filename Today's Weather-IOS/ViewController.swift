@@ -8,13 +8,34 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, WeatherManagerDelegate {
 
+    var weatherManager = WeatherManager()
+    
+    
+
+    @IBOutlet weak var textLabel: UITextField!
+    @IBOutlet weak var weatherDisplayLabel: UIImageView!
+    @IBOutlet weak var cityNameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        weatherManager.delegate = self
     }
 
-
+    @IBAction func searchButtonPressed(_ sender: UIButton) {
+        if let city = textLabel.text {
+            weatherManager.fetchCity(cityName: city)
+        }
+    }
+    
+    func didUpdateWeather(weather: WeatherModel) {
+        DispatchQueue.main.async {
+            self.cityNameLabel.text = weather.city
+        }
+    }
+    
 }
 
